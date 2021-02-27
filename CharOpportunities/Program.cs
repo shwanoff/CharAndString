@@ -16,8 +16,24 @@ namespace CharOpportunities
 			EqualsSymbol();
 			CompareSymbols();
 			ConvertCharAndString();
+			SymbolToNumber();
 
 			Console.ReadLine();
+		}
+
+		private static void SymbolToNumber()
+		{
+			var three = char.GetNumericValue('\u0033'); // цифра 3
+			Console.WriteLine(three); // 3
+			Console.WriteLine((int)'\u0033');
+
+			var quarter = char.GetNumericValue('\u00bc'); // дробь одна четвертая ¼
+			Console.WriteLine(quarter); // 0.25
+			Console.WriteLine((int)'\u00bc');
+
+			var letter = char.GetNumericValue('a'); // не число
+			Console.WriteLine(letter); // -1
+			Console.WriteLine((int)'a');
 		}
 
 		private static void ConvertCharAndString()
