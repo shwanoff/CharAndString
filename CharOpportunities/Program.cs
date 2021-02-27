@@ -9,13 +9,24 @@ namespace CharOpportunities
 		static void Main()
 		{
 			Console.OutputEncoding = Encoding.Unicode;
+			MinMaxChar();
+			CharUnicodeCategory();
+			CharToUpperCultureInfo();
 
-			Console.WriteLine(char.MinValue); // \0
-			Console.WriteLine(char.MaxValue); // \uffff
+			Console.ReadLine();
+		}
 
-			Console.WriteLine((int)char.MinValue); // 0
-			Console.WriteLine((int)char.MaxValue); // 65535
+		private static void CharToUpperCultureInfo()
+		{
+			var symbol = 'i';
+			Console.WriteLine(char.ToUpperInvariant(symbol)); // I
 
+			var cultureInfo = CultureInfo.GetCultureInfo("tr"); // Turkish
+			Console.WriteLine(char.ToUpper(symbol, cultureInfo)); // İ
+		}
+
+		private static void CharUnicodeCategory()
+		{
 			char symbol = 'A';
 			Console.WriteLine(char.GetUnicodeCategory(symbol)); // UppercaseLetter
 
@@ -27,8 +38,15 @@ namespace CharOpportunities
 			{
 				Console.WriteLine("It is definitely not a letter");
 			}
+		}
 
-			Console.ReadLine();
+		private static void MinMaxChar()
+		{
+			Console.WriteLine(char.MinValue); // \0
+			Console.WriteLine(char.MaxValue); // \uffff
+
+			Console.WriteLine((int)char.MinValue); // 0
+			Console.WriteLine((int)char.MaxValue); // 65535
 		}
 	}
 }
