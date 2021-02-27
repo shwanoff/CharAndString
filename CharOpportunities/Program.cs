@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Globalization;
 using System.Text;
 
@@ -12,8 +13,30 @@ namespace CharOpportunities
 			MinMaxChar();
 			CharUnicodeCategory();
 			CharToUpperCultureInfo();
+			EqualsSymbol();
+			CompareSymbols();
 
 			Console.ReadLine();
+		}
+
+		private static void CompareSymbols()
+		{
+			Console.WriteLine((int)'I');
+			Console.WriteLine((int)'İ');
+
+			Console.WriteLine('I'.CompareTo('İ')); // -231
+		}
+
+		private static void EqualsSymbol()
+		{
+			var s1 = 'μ';
+			var s2 = 'µ';
+
+			Console.WriteLine('μ'.Equals(s1)); // true
+			Console.WriteLine(s1.Equals(s2)); // false
+
+			Console.WriteLine((int)s1); // 956
+			Console.WriteLine((int)s2); // 181
 		}
 
 		private static void CharToUpperCultureInfo()
