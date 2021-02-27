@@ -17,8 +17,62 @@ namespace CharOpportunities
 			CompareSymbols();
 			ConvertCharAndString();
 			SymbolToNumber();
+			ConvertChar();
 
 			Console.ReadLine();
+		}
+
+		private static void ConvertChar()
+		{
+			// Приведение типа
+			var a = (char)65; // Буква А
+			Console.WriteLine($"a = {a}");
+
+			var number = (int)'A'; // Число 65
+			Console.WriteLine($"number = {number}");
+
+			var number2 = (int)a; // Число 65
+			Console.WriteLine($"number2 = {number2}");
+
+			var negativeNumber = -3;
+			var tooBigNumber = 65601;
+			var d = 2.573;
+
+			var negativeDefault = (char)negativeNumber; // \uFFFD � 
+			Console.WriteLine($"negativeDefault = {negativeDefault}");
+
+			var tooBigDefault = (char)tooBigNumber; // Буква А
+			Console.WriteLine($"tooBigDefault = {tooBigDefault}");
+
+			var tooBigUnchecked = unchecked((char)tooBigNumber); // Буква А
+			Console.WriteLine($"tooBigUnchecked = {tooBigUnchecked}");
+
+			//var tooBigChecked = checked((char)tooBigNumber); // Ошибка
+			// Console.WriteLine(tooBigChecked);
+
+			//var negativeChecked = checked((char)negativeNumber); // Ошибка
+			//Console.WriteLine(negativeChecked);
+
+			var doubleConvert = (char)d; // \u0002 ☻ - дробная часть числа игнорируется
+			Console.WriteLine($"doubleConvert = {doubleConvert}");
+
+
+			// Тип Convert
+			var convertNumber = Convert.ToChar(65); // Буква А
+			Console.WriteLine($"convertNumber = {convertNumber}");
+
+			var convertChar = Convert.ToInt32('A'); // Число 65
+			Console.WriteLine($"convertChar = {convertChar}");
+
+			//var tooBigConvert = Convert.ToChar(tooBigNumber); // Ошибка
+			//Console.WriteLine(tooBigConvert);
+
+			// Интерфейс IConvertible
+			var iConvertibleNumber = ((IConvertible)65).ToChar(null); // Буква А
+			Console.WriteLine($"iConvertibleNumber = {iConvertibleNumber}");
+
+			var iConvertivleChar = ((IConvertible)'A').ToInt32(null); // Число 65
+			Console.WriteLine($"iConvertivleChar = {iConvertivleChar}");
 		}
 
 		private static void SymbolToNumber()
