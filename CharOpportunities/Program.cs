@@ -15,8 +15,32 @@ namespace CharOpportunities
 			CharToUpperCultureInfo();
 			EqualsSymbol();
 			CompareSymbols();
+			ConvertCharAndString();
 
 			Console.ReadLine();
+		}
+
+		private static void ConvertCharAndString()
+		{
+			var str = "CODE BLOG";
+			var oneSymbolString = "A";
+
+			// var error = char.Parse(str); // Строка обязана состоять из одного символа
+			var result = char.Parse(oneSymbolString);
+			Console.WriteLine(result);
+
+			if (char.TryParse(str, out char symbol))
+			{
+				Console.WriteLine(symbol);
+			}
+			else
+			{
+				Console.WriteLine($"Преобразовать строку [{str}] в символ не удалось");
+			}
+
+			var c = 'G';
+			var s = c.ToString();
+			Console.WriteLine(s);
 		}
 
 		private static void CompareSymbols()
