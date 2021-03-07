@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace StringOpportunities
 {
@@ -6,7 +7,10 @@ namespace StringOpportunities
 	{
 		static void Main(string[] args)
 		{
-			CreateString();
+			Console.OutputEncoding = Encoding.Unicode;
+
+			//CreateString();
+			SpecialSymbols();
 
 			Console.ReadLine();
 		}
@@ -27,6 +31,24 @@ namespace StringOpportunities
 					Console.WriteLine(strFromPointer);
 				}
 			}
+		}
+
+		private static void SpecialSymbols()
+		{
+			var newLine = "CODE\r\nBLOG";
+			var rewriteLine = "CODE\rBLOG";
+			var tab = "CODE\tBLOG";
+			var quotes = "\'CODE\' \"BLOG\"";
+			var slash = "CODE\\BLOG";
+
+			Console.WriteLine(newLine);
+			Console.WriteLine(rewriteLine);
+			Console.WriteLine(tab);
+			Console.WriteLine(quotes);
+			Console.WriteLine(slash);
+
+			var rightNewLine = "CODE" + Environment.NewLine + "BLOG";
+			Console.WriteLine(rightNewLine);
 		}
 	}
 }
