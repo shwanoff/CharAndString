@@ -9,8 +9,10 @@ namespace StringOpportunities
 		{
 			Console.OutputEncoding = Encoding.Unicode;
 
-			//CreateString();
+			CreateString();
 			SpecialSymbols();
+			ConcatString();
+
 
 			Console.ReadLine();
 		}
@@ -49,6 +51,12 @@ namespace StringOpportunities
 
 			var rightNewLine = "CODE" + Environment.NewLine + "BLOG";
 			Console.WriteLine(rightNewLine);
+		}
+
+		private static void ConcatString()
+		{
+			var str = "CODE" + " " + "BLOG";
+			Console.WriteLine(str) ;
 		}
 	}
 }
