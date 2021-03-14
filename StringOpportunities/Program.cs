@@ -12,6 +12,7 @@ namespace StringOpportunities
 			CreateString();
 			SpecialSymbols();
 			ConcatString();
+			VerbatimString();
 
 
 			Console.ReadLine();
@@ -57,6 +58,16 @@ namespace StringOpportunities
 		{
 			var str = "CODE" + " " + "BLOG";
 			Console.WriteLine(str) ;
+		}
+
+		private static void VerbatimString()
+		{
+			// var path = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.exe"; // Error
+			var path = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\Common7\\IDE\\devenv.exe";
+			var verbatimStringPath = @"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.exe";
+
+			Console.WriteLine(path);
+			Console.WriteLine(verbatimStringPath);
 		}
 	}
 }
