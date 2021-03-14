@@ -13,6 +13,7 @@ namespace StringOpportunities
 			SpecialSymbols();
 			ConcatString();
 			VerbatimString();
+			StringImmutability();
 
 
 			Console.ReadLine();
@@ -68,6 +69,20 @@ namespace StringOpportunities
 
 			Console.WriteLine(path);
 			Console.WriteLine(verbatimStringPath);
+		}
+
+		private static void StringImmutability()
+		{
+			var path = @"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.exe";
+			
+			if(path.ToUpperInvariant().Substring(40, 30).EndsWith("COMMON7"))
+			{
+				Console.WriteLine("Подстрока содержит 'common7' на конце");
+			}
+			else
+			{
+				Console.WriteLine("Указанная подстрока заканчивается не на 'common7'");
+			}
 		}
 	}
 }
