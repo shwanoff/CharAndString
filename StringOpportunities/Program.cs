@@ -9,12 +9,12 @@ namespace StringOpportunities
 		{
 			Console.OutputEncoding = Encoding.Unicode;
 
-			CreateString();
-			SpecialSymbols();
-			ConcatString();
-			VerbatimString();
-			StringImmutability();
-
+			//CreateString();
+			//SpecialSymbols();
+			//ConcatString();
+			//VerbatimString();
+			//StringImmutability();
+			CompareString();
 
 			Console.ReadLine();
 		}
@@ -83,6 +83,22 @@ namespace StringOpportunities
 			{
 				Console.WriteLine("Указанная подстрока заканчивается не на 'common7'");
 			}
+		}
+
+		private static void CompareString()
+		{
+			var str1 = "code blog";
+			var str2 = "CODE BLOG";
+
+			// Проверка на равенство
+			Console.WriteLine(str1.Equals(str2, StringComparison.OrdinalIgnoreCase));
+			Console.WriteLine(string.Equals(str1, str2, StringComparison.Ordinal));
+
+			// Сравнение для упорядочивания системных строк
+			Console.WriteLine(string.Compare(str1, str2, StringComparison.OrdinalIgnoreCase));
+
+			// Сравнение для упорядочивания при демонстрации пользователю
+			Console.WriteLine(string.Compare(str1, str2, StringComparison.CurrentCulture));
 		}
 	}
 }
