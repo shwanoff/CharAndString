@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 
 namespace StringOpportunities
@@ -14,7 +15,8 @@ namespace StringOpportunities
 			//ConcatString();
 			//VerbatimString();
 			//StringImmutability();
-			CompareString();
+			//CompareString();
+			CompareInfo();
 
 			Console.ReadLine();
 		}
@@ -99,6 +101,27 @@ namespace StringOpportunities
 
 			// Сравнение для упорядочивания при демонстрации пользователю
 			Console.WriteLine(string.Compare(str1, str2, StringComparison.CurrentCulture));
+		}
+
+		private static void CompareInfo()
+		{
+			var s1 = "Strasse";
+			var s2 = "Straße";
+			
+			// CompareOrdinal возвращает ненулевое значение
+			var ordianlCompareResult = string.Compare(s1, s2, StringComparison.Ordinal);
+			var ordianEquals = ordianlCompareResult == 0 ? "==" : "!=";
+
+			Console.WriteLine($"Ordinal сравнение: '{s1}' {ordianEquals} '{s2}'");
+
+			// Сортировка строк для немецкого языка (de) в Германии (DE)
+			var culture = new CultureInfo("de-DE");
+
+			// Compare возвращает нуль
+			var compareResult = string.Compare(s1, s2, true, culture);
+			var equals = compareResult == 0 ? "==" : "!=";
+
+			Console.WriteLine($"Cultural сравнение: '{s1}' {equals} '{s2}'");
 		}
 	}
 }
