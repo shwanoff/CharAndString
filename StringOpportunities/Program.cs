@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace StringOpportunities
 {
@@ -10,13 +12,14 @@ namespace StringOpportunities
 		{
 			Console.OutputEncoding = Encoding.Unicode;
 
-			//CreateString();
-			//SpecialSymbols();
-			//ConcatString();
-			//VerbatimString();
-			//StringImmutability();
-			//CompareString();
+			CreateString();
+			SpecialSymbols();
+			ConcatString();
+			VerbatimString();
+			StringImmutability();
+			CompareString();
 			CompareInfo();
+			CompareDifferentCultureInfo();
 
 			Console.ReadLine();
 		}
@@ -122,6 +125,47 @@ namespace StringOpportunities
 			var equals = compareResult == 0 ? "==" : "!=";
 
 			Console.WriteLine($"Cultural сравнение: '{s1}' {equals} '{s2}'");
+		}
+
+		private static void CompareDifferentCultureInfo()
+		{
+			var s1 = "coté";
+			var s2 = "côte";
+
+			// Сортировка строк для французского языка (Франция)
+			var french = new CultureInfo("fr-FR");
+			CompareTwoStrings(s1, s2, french);
+
+			// Сортировка строк для японского языка (Япония)
+			var japan = new CultureInfo("ja-JP");
+			CompareTwoStrings(s1, s2, japan);
+
+
+			// Сортировка строк по региональным стандартам потока
+			var current = Thread.CurrentThread.CurrentCulture;
+			CompareTwoStrings(s1, s2, current);
+
+			// Следующий код демонстрирует использование дополнительных возможностей
+			// метода CompareInfo.Compare при работе с двумя строками на японском языке 
+			// Эти строки представляют слово "shinkansen" (название высокоскоростного поезда) 
+			// в разных вариантах письма: хирагане и катакане
+			var s3 = "\u3057\u3093\u304b\u3093\u305b\u3093"; 
+			var s4 = "\u30b7\u30f3\u30ab\u30f3\u30bb\u30f3"; 
+
+			// Результат сравнения по умолчанию
+			CompareTwoStrings(s3, s4, japan);
+
+			// Результат сравнения, который игнорирует тип каны
+			CompareTwoStrings(s3, s4, japan, CompareOptions.IgnoreKanaType);
+			}
+
+		private static void CompareTwoStrings(string s1, string s2, CultureInfo cultureInfo, CompareOptions compareOptions = CompareOptions.None)
+		{
+			var symbols = new string[] { "<", "=", ">" };
+			var x = Math.Sign(cultureInfo.CompareInfo.Compare(s1, s2, compareOptions));
+			var result = $"{cultureInfo.Name} Compare: {s1} {symbols[x + 1]} {s2}";
+			Console.WriteLine(result);
+			MessageBox.Show(result, "Comparing Strings For Sorting");
 		}
 	}
 }
