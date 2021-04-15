@@ -157,7 +157,7 @@ namespace StringOpportunities
 
 			// Результат сравнения, который игнорирует тип каны
 			CompareTwoStrings(s3, s4, japan, CompareOptions.IgnoreKanaType);
-			}
+		}
 
 		private static void CompareTwoStrings(string s1, string s2, CultureInfo cultureInfo, CompareOptions compareOptions = CompareOptions.None)
 		{
@@ -165,6 +165,11 @@ namespace StringOpportunities
 			var x = Math.Sign(cultureInfo.CompareInfo.Compare(s1, s2, compareOptions));
 			var result = $"{cultureInfo.Name} Compare: {s1} {symbols[x + 1]} {s2}";
 			Console.WriteLine(result);
+
+			// К сожалению вывести сообщение на консоль не получается даже с установленной кодировкой Unicode
+			// Это связано с тем, что сам шрифт использующийся для вывода на консоль не поддерживает данные символы. 
+			// Теоретически это можно исправить установив языковой пакет для Windows и изменив в настройках консоли шрифт с Consolas например на KaiTi
+			// Или можно просто вывести сообщение в MessageBox.
 			MessageBox.Show(result, "Comparing Strings For Sorting");
 		}
 	}
