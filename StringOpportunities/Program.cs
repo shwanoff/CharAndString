@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
@@ -23,7 +26,10 @@ namespace StringOpportunities
 			//CompareInfo();
 			//CompareDifferentCultureInfo();
 			//InterningLiterals();
-			InterningInput();
+			//InterningInput();
+
+			NumTimesWordAppearsEquals();
+			NumTimesWordAppearsIntern();
 
 			Console.ReadLine();
 		}
@@ -205,5 +211,85 @@ namespace StringOpportunities
 
 			Console.WriteLine(ReferenceEquals(str1, str2)); // true
 		}
+
+		private static void NumTimesWordAppearsEquals()
+		{
+			GC.Collect();
+			Console.WriteLine();
+			var word = "lorem";
+			var wordList = new List<string>();
+
+			var timer = new Stopwatch();
+
+			timer.Start();
+			using (var sr = new StreamReader(@"D:\admsh\Desktop\LoremIpsum.txt"))
+			{
+				while (!sr.EndOfStream)
+				{
+					var text = sr.ReadLine();
+					wordList.AddRange(text.Split(' '));
+				}
+			}
+			var readingTime = timer.Elapsed;
+			Console.WriteLine($"Чтение файла заняло {readingTime}");
+
+			var count = 0;
+
+			foreach (var w in wordList)
+			{
+				if (word.Equals(w, StringComparison.Ordinal))
+				{
+					count++;
+				}
+			}
+			timer.Stop();
+			var comparingTime = timer.Elapsed - readingTime;
+			Console.WriteLine($"Подсчет числа вхождений слова заняло {comparingTime}");
+			Console.WriteLine($"Время выполнения {timer.Elapsed}");
+			Console.WriteLine($"Память {Process.GetCurrentProcess().WorkingSet64 / 1048576} MB");
+			Console.WriteLine($"Слово {word} встречается в тексте {count} раз. Всего в тексте {wordList.Count} слов");
+		}
+
+		private static void NumTimesWordAppearsIntern()
+		{
+			GC.Collect();
+			Console.WriteLine();
+			var word = string.Intern("lorem");
+			var wordList = new List<string>();
+
+			var timer = new Stopwatch();
+
+			timer.Start();
+			using (var sr = new StreamReader(@"D:\admsh\Desktop\LoremIpsum.txt"))
+			{
+				while (!sr.EndOfStream)
+				{
+					var text = sr.ReadLine();
+					foreach (var w in text.Split(' '))
+					{
+						wordList.Add(string.Intern(w));
+					}
+				}
+			}
+			var readingTime = timer.Elapsed;
+			Console.WriteLine($"Чтение файла заняло {readingTime}");
+
+			var count = 0;
+
+			foreach (var w in wordList)
+			{
+				if (ReferenceEquals(w, word))
+				{
+					count++;
+				}
+			}
+			timer.Stop();
+			var comparingTime = timer.Elapsed - readingTime;
+			Console.WriteLine($"Подсчет числа вхождений слова заняло {comparingTime}");
+			Console.WriteLine($"Время выполнения {timer.Elapsed}");
+			Console.WriteLine($"Память {Process.GetCurrentProcess().WorkingSet64 / 1048576} MB");
+			Console.WriteLine($"Слово {word} встречается в тексте {count} раз. Всего в тексте {wordList.Count} слов");
+		}
+
 	}
 }
