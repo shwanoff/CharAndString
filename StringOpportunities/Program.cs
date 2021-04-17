@@ -1,25 +1,29 @@
 ﻿using System;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
 namespace StringOpportunities
 {
+	[CompilationRelaxations(CompilationRelaxations.NoStringInterning)]
 	class Program
 	{
 		static void Main(string[] args)
 		{
 			Console.OutputEncoding = Encoding.Unicode;
 
-			CreateString();
-			SpecialSymbols();
-			ConcatString();
-			VerbatimString();
-			StringImmutability();
-			CompareString();
-			CompareInfo();
-			CompareDifferentCultureInfo();
+			//CreateString();
+			//SpecialSymbols();
+			//ConcatString();
+			//VerbatimString();
+			//StringImmutability();
+			//CompareString();
+			//CompareInfo();
+			//CompareDifferentCultureInfo();
+			//InterningLiterals();
+			InterningInput();
 
 			Console.ReadLine();
 		}
@@ -171,6 +175,35 @@ namespace StringOpportunities
 			// Теоретически это можно исправить установив языковой пакет для Windows и изменив в настройках консоли шрифт с Consolas например на KaiTi
 			// Или можно просто вывести сообщение в MessageBox.
 			MessageBox.Show(result, "Comparing Strings For Sorting");
+		}
+
+		private static void InterningLiterals()
+		{
+			var str1 = "code blog";
+			var str2 = "code blog";
+
+			// Должно быть false, но в реальности будет true,  
+			// т.к. в свежих версиях .NET Framework
+			// интернирование литеральных строк выполняется несмотря на атрибут CompilationRelaxations.NoStringInterning
+			Console.WriteLine(ReferenceEquals(str1, str2)); // true
+
+			str1 = string.Intern(str1);
+			str2 = string.Intern(str2);
+
+			Console.WriteLine(ReferenceEquals(str1, str2)); // true
+		}
+
+		private static void InterningInput()
+		{
+			var str1 = Console.ReadLine();
+			var str2 = Console.ReadLine();
+
+			Console.WriteLine(ReferenceEquals(str1, str2)); // false
+
+			str1 = string.Intern(str1);
+			str2 = string.Intern(str2);
+
+			Console.WriteLine(ReferenceEquals(str1, str2)); // true
 		}
 	}
 }
