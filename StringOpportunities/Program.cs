@@ -28,8 +28,10 @@ namespace StringOpportunities
 			//InterningLiterals();
 			//InterningInput();
 
-			NumTimesWordAppearsEquals();
-			NumTimesWordAppearsIntern();
+			//NumTimesWordAppearsEquals();
+			//NumTimesWordAppearsIntern();
+
+			WorkWithStringInfo();
 
 			Console.ReadLine();
 		}
@@ -222,7 +224,7 @@ namespace StringOpportunities
 			var timer = new Stopwatch();
 
 			timer.Start();
-			using (var sr = new StreamReader(@"D:\admsh\Desktop\LoremIpsum.txt"))
+			using (var sr = new StreamReader(@"C:\Users\admsh\OneDrive\Desktop\LoremIpsum.txt"))
 			{
 				while (!sr.EndOfStream)
 				{
@@ -260,7 +262,7 @@ namespace StringOpportunities
 			var timer = new Stopwatch();
 
 			timer.Start();
-			using (var sr = new StreamReader(@"D:\admsh\Desktop\LoremIpsum.txt"))
+			using (var sr = new StreamReader(@"C:\Users\admsh\OneDrive\Desktop\LoremIpsum.txt"))
 			{
 				while (!sr.EndOfStream)
 				{
@@ -291,5 +293,50 @@ namespace StringOpportunities
 			Console.WriteLine($"Слово {word} встречается в тексте {count} раз. Всего в тексте {wordList.Count} слов");
 		}
 
+		private static void WorkWithStringInfo()
+		{
+			// Данная строка содержит комбинированные символы
+			var str = "a\u0304\u0308bc\u0327";
+
+			SubstringByTextElements(str);
+			EnumTextElements(str);
+			EnumTextElementIndexes(str);
+		}
+
+		private static void SubstringByTextElements(string str)
+		{
+			var output = string.Empty;
+			var si = new StringInfo(str);
+			for (var element = 0; element < si.LengthInTextElements; element++)
+			{
+				output += $"Text element {element} is '{si.SubstringByTextElements(element, 1)}'{Environment.NewLine}";
+			}
+
+			MessageBox.Show(output, "Result of SubstringByTextElements");
+		}
+
+		private static void EnumTextElements(string str)
+		{
+			var output = string.Empty;
+			var charEnum = StringInfo.GetTextElementEnumerator(str);
+			while (charEnum.MoveNext())
+			{
+				output += $"Character at index {charEnum.ElementIndex} is '{charEnum.GetTextElement()}'{Environment.NewLine}";
+			}
+
+			MessageBox.Show(output, "Result of GetTextElementEnumerator");
+		}
+
+		private static void EnumTextElementIndexes(string str)
+		{
+			var output = string.Empty;
+			var textElemIndex = StringInfo.ParseCombiningCharacters(str);
+			for (var i = 0; i < textElemIndex.Length; i++)
+			{
+				output += $"Character {i} starts at index {textElemIndex[i]}{Environment.NewLine}";
+			}
+
+			MessageBox.Show(output, "Result of ParseCombiningCharacters");
+		}
 	}
 }
